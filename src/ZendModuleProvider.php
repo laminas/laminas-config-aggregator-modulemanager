@@ -5,7 +5,7 @@
  * @license   https://github.com/zendframework/zend-config-aggregator-modulemanager/blob/master/LICENSE.md
  *            New BSD License
  */
-
+declare(strict_types=1);
 namespace Zend\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
@@ -44,20 +44,14 @@ class ZendModuleProvider
         $this->module = $module;
     }
 
-    /**
-     * @return array
-     */
-    public function __invoke()
+    public function __invoke(): array
     {
         return array_replace_recursive($this->getModuleConfig(), [
             $this->getDependenciesIdentifier() => $this->getModuleDependencies(),
         ]);
     }
 
-    /**
-     * @return array
-     */
-    private function getModuleDependencies()
+    private function getModuleDependencies(): array
     {
         $module = $this->module;
         if (! $module instanceof ServiceProviderInterface) {
@@ -67,10 +61,7 @@ class ZendModuleProvider
         return array_replace_recursive($this->dependencies, $this->convert($module->getServiceConfig()));
     }
 
-    /**
-     * @return array
-     */
-    private function getModuleConfig()
+    private function getModuleConfig(): array
     {
         $module = $this->module;
 
@@ -95,7 +86,7 @@ class ZendModuleProvider
      *
      * @return array
      */
-    private function convert($config)
+    private function convert($config): array
     {
         if ($config instanceof Config) {
             $config = $config->toArray();
@@ -117,20 +108,12 @@ class ZendModuleProvider
         return $config;
     }
 
-    /**
-     * @return string
-     */
-    public function getDependenciesIdentifier()
+    public function getDependenciesIdentifier(): string
     {
         return $this->dependenciesIdentifier;
     }
 
-    /**
-     * @param string $dependenciesIdentifier
-     *
-     * @return void
-     */
-    public function setDependenciesIdentifier($dependenciesIdentifier)
+    public function setDependenciesIdentifier(string $dependenciesIdentifier): void
     {
         $this->dependenciesIdentifier = (string) $dependenciesIdentifier;
     }
