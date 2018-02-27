@@ -11,7 +11,7 @@ or other projects.
 
 ```php
 use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\ConfigAggregator\ModuleManager\ZendModuleProvider;
+use Zend\ConfigAggregatorModuleManager\ZendModuleProvider;
 use My\Zend\MvcModule\Module as MyZendMvcModule;
 
 namespace My\Zend\MvcModule

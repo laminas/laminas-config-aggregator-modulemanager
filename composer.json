@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zend\\ConfigAggregator\\ModuleManager\\": "src/"
+            "Zend\\ConfigAggregatorModuleManager\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\ConfigAggregator\\ModuleManager\\": "test/"
+            "ZendTest\\ConfigAggregatorModuleManager\\": "test/"
         }
     },
     "config": {

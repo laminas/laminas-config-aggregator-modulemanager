@@ -6,7 +6,7 @@
  *            New BSD License
  */
 
-namespace Zend\ConfigAggregator\ModuleManager;
+namespace Zend\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
 use Traversable;

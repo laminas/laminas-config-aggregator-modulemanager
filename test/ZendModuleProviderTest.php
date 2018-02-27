@@ -1,17 +1,17 @@
 <?php
 
-namespace ZendTest\ConfigAggregator\ModuleManager;
+namespace ZendTest\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\ConfigAggregator\ModuleManager\ZendModuleProvider;
+use Zend\ConfigAggregatorModuleManager\ZendModuleProvider;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use ZendTest\ConfigAggregator\ModuleManager\Resources\ZendModule;
-use ZendTest\ConfigAggregator\ModuleManager\Resources\ZendModuleWithInvalidConfiguration;
-use ZendTest\ConfigAggregator\ModuleManager\Resources\ZendModuleWithoutImplementingInterfaces;
-use ZendTest\ConfigAggregator\ModuleManager\Resources\ZendModuleWithTraversableConfig;
-use ZendTest\ConfigAggregator\ModuleManager\Resources\ZendModuleWithZendConfig;
+use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModule;
+use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithInvalidConfiguration;
+use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithoutImplementingInterfaces;
+use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithTraversableConfig;
+use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithZendConfig;
 
 /**
  * @author Maximilian Bösing <max@boesing.email>

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\ConfigAggregator\ModuleManager\Resources;
+namespace ZendTest\ConfigAggregatorModuleManager\Resources;
 
 /**
  * @author Maximilian Bösing <max@boesing.email>

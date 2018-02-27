@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\ConfigAggregator\ModuleManager\Resources;
+namespace ZendTest\ConfigAggregatorModuleManager\Resources;
 
 use ArrayObject;
 use stdClass;
