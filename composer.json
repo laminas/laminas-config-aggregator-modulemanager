@@ -14,7 +14,7 @@
         "zendframework/zend-modulemanager": "^2.8"
     },
     "require-dev": {
-        "malukenho/docheader": "^0.1.7",
+        "malukenho/docheader": "^0.1.5",
         "phpunit/phpunit": "5.7.21 || 6.3",
         "zendframework/zend-coding-standard": "~1.0.0",
         "zendframework/zend-config": "^3.1",
