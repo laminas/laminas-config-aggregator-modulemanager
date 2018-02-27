@@ -10,6 +10,5 @@ class ZendModuleWithInvalidConfiguration
 
     public function getConfig()
     {
-
     }
 }
