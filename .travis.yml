@@ -1,0 +1,70 @@
+sudo: false
+
+language: php
+
+branches:
+  except:
+    - /^release-.*$/
+    - /^ghgfk-.*$/
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.local
+    - zf-mkdoc-theme
+
+services:
+  - mongodb
+
+env:
+  global:
+    - SITE_URL="https://zendframework.github.io/zend-cache-mongo"
+    - GH_USER_NAME="Matthew Weier O'Phinney"
+    - GH_USER_EMAIL="matthew@weierophinney.net"
+    - GH_REF="github.com/zendframework/zend-cache-mongo.git"
+    - secure: "ZYYlfFWTde5MCn6twsm/+s+mx4bLEaVFFG+tuaeiz7nCx+z495D6FxruzBbY1zheX9rNo9qReDo0Tyfn2wrUH8SJYbR9iKDqB95GPDDPW+I23Mw3Uuddr8XqbtabTJVqEQg6iAu7IIQG4TvFFmdq/g26jWim8Cngg/5zZh4Q2GuLSjIKRJBpLe7mSTjQVqaApS/a8wmvPJiSoqxWmY8Botc88ZXMmkRDPQoqEdZOeS4i029cGMXUnzGj7Vl7qwfol6Yj/R441Hd84Vt8P8BOdRyW0tjmllXLXJUYFKCcP5fEqIujbU68FwJMidCPzBcXv2N0klW43ViVwdJD6gBgZStwOyENGeEw1VcbZ6JReMa68F1mtqLhBhZtF8WRUI8+TYMYmLPGMVTcets4P3nIB18uX1CittwGDD2y2OL8MDvuIuaSQFoj/PdUb+BC/DvvmtPGnF6MLTAUjqNlxYbmzopufDEtivWHsqeyxHZj0L0HD5KkMslD9wnngfi+lcQ5e3iFQe/H5vQKE0BfooukxErIXk00cwwMoMjFY4v95CS0BKFhA4HMclKpGEA94CH4STxwyD2Nz/z6iGPqkZuzqDLOKhLr2FsY7bFbvEdNu57G3PGahtYJtc31lcnwKf2t1ALGcG9LS0/ezJSzqx659hWL0B5qgHjCNDnAyKJcNxM="
+
+matrix:
+  include:
+    - php: 5.6
+      env:
+        - DEPS=lowest
+        - CHECK_CS=true
+        #- DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
+        #- PATH="$HOME/.local/bin:$PATH"
+    - php: 5.6
+      env:
+        - DEPS=latest
+        - TEST_COVERAGE=true
+
+notifications:
+  irc: "irc.freenode.org#zftalk.dev"
+  email: false
+
+before_install:
+  - if [[ $TRAVIS_PHP_VERSION != "hhvm" && $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini ; fi
+  - if [[ $TRAVIS_PHP_VERSION != 'hhvm' ]]; then phpenv config-add .ci/mongo.ini ; fi
+
+install:
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev satooshi/php-coveralls:^1.0 ; fi
+  - travis_retry composer install
+  - composer show
+
+script:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then
+        composer run-script test -- --colors=always --coverage-clover clover.xml ;
+    else
+        composer run-script test -- --colors=always ;
+    fi
+  - if [[ $CHECK_CS == 'true' ]]; then composer cs-check ; fi
+  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then
+        travis_retry curl -sSL https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh | bash ;
+    fi
+
+after_script:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry ./vendor/bin/coveralls -v -x clover.xml ; fi
+
+after_success:
+  - if [[ $DEPLOY_DOCS == "true" ]]; then ./zf-mkdoc-theme/deploy.sh ; fi

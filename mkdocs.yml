@@ -1,0 +1,8 @@
+site_name: zend-config-aggregator-modulemanager
+docs_dir: docs/book
+site_dir: docs/html
+pages:
+    - index.md
+site_description: 'zendframework/zend-modulemanager extension for the zendframework/zend-config-aggregator package.'
+repo_url: 'https://github.com/zendframework/zend-config-aggregator-modulemanager'
+copyright: 'Copyright (c) 2016-2018 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
