@@ -11,6 +11,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
  */
 class ZendModuleWithoutImplementingInterfaces
 {
+    use ServiceManagerConfigurationTrait;
 
     /**
      * {@inheritDoc}
@@ -19,11 +20,7 @@ class ZendModuleWithoutImplementingInterfaces
     {
         return [
             '__class__' => __CLASS__,
-            'service_manager' => [
-                'factories' => [
-                      'SomeObject' => InvokableFactory::class,
-                ],
-            ],
+            'service_manager' => $this->createServiceManagerConfiguration(),
         ];
     }
 }

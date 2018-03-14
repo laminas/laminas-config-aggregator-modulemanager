@@ -10,15 +10,12 @@ use Zend\Config\Config;
  */
 class ZendModuleWithZendConfig
 {
+    use ServiceManagerConfigurationTrait;
 
     public function getConfig()
     {
         return new Config([
-            'service_manager' => [
-                'invokables' => [
-                    stdClass::class => stdClass::class,
-                ],
-            ],
+            'service_manager' => $this->createServiceManagerConfiguration(),
         ]);
     }
 }

@@ -10,15 +10,12 @@ use stdClass;
  */
 class ZendModuleWithTraversableConfig
 {
+    use ServiceManagerConfigurationTrait;
 
     public function getConfig()
     {
         return new ArrayObject([
-            'service_manager' => [
-                'invokables' => [
-                    stdClass::class => stdClass::class,
-                ],
-            ],
+            'service_manager' => $this->createServiceManagerConfiguration(),
         ]);
     }
 }

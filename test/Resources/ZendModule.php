@@ -11,6 +11,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
  */
 class ZendModule implements ServiceProviderInterface, ConfigProviderInterface
 {
+    use ServiceManagerConfigurationTrait;
 
     /**
      * {@inheritDoc}
@@ -27,10 +28,6 @@ class ZendModule implements ServiceProviderInterface, ConfigProviderInterface
      */
     public function getServiceConfig()
     {
-        return [
-            'factories' => [
-                'MyInvokable' => InvokableFactory::class,
-            ],
-        ];
+        return $this->createServiceManagerConfiguration();
     }
 }

@@ -6,14 +6,21 @@
  *            New BSD License
  */
 declare(strict_types=1);
+
 namespace Zend\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
 use Traversable;
 use Zend\Config\Config;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\ControllerProviderInterface;
+use Zend\ModuleManager\Feature\FilterProviderInterface;
+use Zend\ModuleManager\Feature\FormElementProviderInterface;
+use Zend\ModuleManager\Feature\HydratorProviderInterface;
+use Zend\ModuleManager\Feature\InputFilterProviderInterface;
+use Zend\ModuleManager\Feature\RouteProviderInterface;
+use Zend\ModuleManager\Feature\SerializerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\ModuleManager\Feature\ValidatorProviderInterface;
 
 /**
  * Provide a configuration by using zend-modulemanager Module files.
@@ -46,27 +53,24 @@ class ZendModuleProvider
 
     public function __invoke(): array
     {
-        return array_replace_recursive($this->getModuleConfig(), [
+        return array_filter(array_replace_recursive($this->getModuleConfig(), [
             $this->getDependenciesIdentifier() => $this->getModuleDependencies(),
-        ]);
-    }
-
-    private function getModuleDependencies(): array
-    {
-        $module = $this->module;
-        if (! $module instanceof ServiceProviderInterface) {
-            return $this->dependencies;
-        }
-
-        return array_replace_recursive($this->dependencies, $this->convert($module->getServiceConfig()));
+            'route_manager' => $this->getRouteConfig(),
+            'form_elements' => $this->getFormElementConfig(),
+            'filters' => $this->getFilterConfig(),
+            'validators' => $this->getValidatorConfig(),
+            'hydrators' => $this->getHydratorConfig(),
+            'input_filters' => $this->getInputFilterConfig(),
+            'serializers' => $this->getSerializerConfig(),
+        ]));
     }
 
     private function getModuleConfig(): array
     {
         $module = $this->module;
 
-        if (! $module instanceof ConfigProviderInterface
-            && ! is_callable([$module, 'getConfig'])
+        if (!$module instanceof ConfigProviderInterface
+            && !is_callable([$module, 'getConfig'])
         ) {
             return [];
         }
@@ -96,7 +100,7 @@ class ZendModuleProvider
             $config = iterator_to_array($config);
         }
 
-        if (! is_array($config)) {
+        if (!is_array($config)) {
             throw new InvalidArgumentException(sprintf(
                 'Config being merged must be an array, '
                 . 'implement the Traversable interface, or be an '
@@ -116,5 +120,78 @@ class ZendModuleProvider
     public function setDependenciesIdentifier(string $dependenciesIdentifier): void
     {
         $this->dependenciesIdentifier = (string) $dependenciesIdentifier;
+    }
+
+    private function getModuleDependencies(): array
+    {
+        $module = $this->module;
+        if (!$module instanceof ServiceProviderInterface) {
+            return $this->dependencies;
+        }
+
+        return array_replace_recursive($this->dependencies, $this->convert($module->getServiceConfig()));
+    }
+
+    public function getRouteConfig(): array
+    {
+        if (!$this->module instanceof RouteProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getRouteConfig());
+    }
+
+    public function getFormElementConfig(): array
+    {
+        if (!$this->module instanceof FormElementProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getFormElementConfig());
+    }
+
+    public function getFilterConfig(): array
+    {
+        if (!$this->module instanceof FilterProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getFilterConfig());
+    }
+
+    public function getValidatorConfig(): array
+    {
+        if (!$this->module instanceof ValidatorProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getValidatorConfig());
+    }
+
+    public function getHydratorConfig(): array
+    {
+        if (!$this->module instanceof HydratorProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getHydratorConfig());
+    }
+
+    public function getInputFilterConfig()
+    {
+        if (!$this->module instanceof InputFilterProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getInputFilterConfig());
+    }
+
+    public function getSerializerConfig(): array
+    {
+        if (!$this->module instanceof SerializerProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getSerializerConfig());
     }
 }
