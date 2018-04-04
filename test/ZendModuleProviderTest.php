@@ -28,9 +28,6 @@ use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithoutImplementi
 use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithTraversableConfig;
 use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithZendConfig;
 
-/**
- * @author Maximilian Bösing <max@boesing.email>
- */
 class ZendModuleProviderTest extends TestCase
 {
     use ServiceManagerConfigurationTrait;

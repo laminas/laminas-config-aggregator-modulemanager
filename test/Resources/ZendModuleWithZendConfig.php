@@ -13,9 +13,6 @@ namespace ZendTest\ConfigAggregatorModuleManager\Resources;
 use stdClass;
 use Zend\Config\Config;
 
-/**
- * @author Maximilian Bösing <max@boesing.email>
- */
 class ZendModuleWithZendConfig
 {
     use ServiceManagerConfigurationTrait;

@@ -13,9 +13,6 @@ namespace ZendTest\ConfigAggregatorModuleManager\Resources;
 use ArrayObject;
 use stdClass;
 
-/**
- * @author Maximilian Bösing <max@boesing.email>
- */
 class ZendModuleWithTraversableConfig
 {
     use ServiceManagerConfigurationTrait;

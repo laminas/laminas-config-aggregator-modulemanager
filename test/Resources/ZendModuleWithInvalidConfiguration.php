@@ -10,9 +10,6 @@ declare(strict_types=1);
 
 namespace ZendTest\ConfigAggregatorModuleManager\Resources;
 
-/**
- * @author Maximilian Bösing <max@boesing.email>
- */
 class ZendModuleWithInvalidConfiguration
 {
 
