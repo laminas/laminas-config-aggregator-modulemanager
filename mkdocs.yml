@@ -3,6 +3,7 @@ docs_dir: docs/book
 site_dir: docs/html
 pages:
     - index.md
-site_description: 'zendframework/zend-modulemanager extension for the zendframework/zend-config-aggregator package.'
+    - Usage: usage.md
+site_description: 'Consume zend-mvc modules as configuration providers within zend-config-aggregator.'
 repo_url: 'https://github.com/zendframework/zend-config-aggregator-modulemanager'
-copyright: 'Copyright (c) 2016-2018 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+copyright: 'Copyright (c) 2018 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
