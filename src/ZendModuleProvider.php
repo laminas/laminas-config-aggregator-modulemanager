@@ -5,6 +5,7 @@
  * @license   https://github.com/zendframework/zend-config-aggregator-modulemanager/blob/master/LICENSE.md
  *            New BSD License
  */
+
 declare(strict_types=1);
 
 namespace Zend\ConfigAggregatorModuleManager;
@@ -23,11 +24,10 @@ use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ValidatorProviderInterface;
 
 /**
- * Provide a configuration by using zend-modulemanager Module files.
+ * Provide configuration by consuming zend-modulemanager Module classes.
  */
 class ZendModuleProvider
 {
-
     /**
      * @var object
      */
@@ -51,7 +51,7 @@ class ZendModuleProvider
         $this->module = $module;
     }
 
-    public function __invoke(): array
+    public function __invoke() : array
     {
         return array_filter(array_replace_recursive($this->getModuleConfig(), [
             $this->getDependenciesIdentifier() => $this->getModuleDependencies(),
@@ -65,7 +65,7 @@ class ZendModuleProvider
         ]));
     }
 
-    private function getModuleConfig(): array
+    private function getModuleConfig() : array
     {
         $module = $this->module;
 
@@ -90,21 +90,21 @@ class ZendModuleProvider
      *
      * @return array
      */
-    private function convert($config): array
+    private function convert($config) : array
     {
         if ($config instanceof Config) {
-            $config = $config->toArray();
+            return $config->toArray();
         }
 
         if ($config instanceof Traversable) {
-            $config = iterator_to_array($config);
+            return iterator_to_array($config);
         }
 
         if (! is_array($config)) {
             throw new InvalidArgumentException(sprintf(
-                'Config being merged must be an array, '
-                . 'implement the Traversable interface, or be an '
-                . 'instance of Zend\Config\Config. %s given.',
+                'Config being merged must be an array, implement the Traversable interface,'
+                . ' or be an instance of %s. %s given.',
+                Config::class,
                 is_object($config) ? get_class($config) : gettype($config)
             ));
         }
@@ -112,17 +112,17 @@ class ZendModuleProvider
         return $config;
     }
 
-    public function getDependenciesIdentifier(): string
+    public function getDependenciesIdentifier() : string
     {
         return $this->dependenciesIdentifier;
     }
 
-    public function setDependenciesIdentifier(string $dependenciesIdentifier): void
+    public function setDependenciesIdentifier(string $dependenciesIdentifier) : void
     {
         $this->dependenciesIdentifier = (string) $dependenciesIdentifier;
     }
 
-    private function getModuleDependencies(): array
+    private function getModuleDependencies() : array
     {
         $module = $this->module;
         if (! $module instanceof ServiceProviderInterface) {
@@ -132,7 +132,7 @@ class ZendModuleProvider
         return array_replace_recursive($this->dependencies, $this->convert($module->getServiceConfig()));
     }
 
-    public function getRouteConfig(): array
+    public function getRouteConfig() : array
     {
         if (! $this->module instanceof RouteProviderInterface) {
             return [];
@@ -141,7 +141,7 @@ class ZendModuleProvider
         return $this->convert($this->module->getRouteConfig());
     }
 
-    public function getFormElementConfig(): array
+    public function getFormElementConfig() : array
     {
         if (! $this->module instanceof FormElementProviderInterface) {
             return [];
@@ -150,7 +150,7 @@ class ZendModuleProvider
         return $this->convert($this->module->getFormElementConfig());
     }
 
-    public function getFilterConfig(): array
+    public function getFilterConfig() : array
     {
         if (! $this->module instanceof FilterProviderInterface) {
             return [];
@@ -159,7 +159,7 @@ class ZendModuleProvider
         return $this->convert($this->module->getFilterConfig());
     }
 
-    public function getValidatorConfig(): array
+    public function getValidatorConfig() : array
     {
         if (! $this->module instanceof ValidatorProviderInterface) {
             return [];
@@ -168,7 +168,7 @@ class ZendModuleProvider
         return $this->convert($this->module->getValidatorConfig());
     }
 
-    public function getHydratorConfig(): array
+    public function getHydratorConfig() : array
     {
         if (! $this->module instanceof HydratorProviderInterface) {
             return [];
@@ -186,7 +186,7 @@ class ZendModuleProvider
         return $this->convert($this->module->getInputFilterConfig());
     }
 
-    public function getSerializerConfig(): array
+    public function getSerializerConfig() : array
     {
         if (! $this->module instanceof SerializerProviderInterface) {
             return [];

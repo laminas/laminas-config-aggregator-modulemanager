@@ -6,6 +6,8 @@
  *            New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
@@ -31,7 +33,6 @@ use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithZendConfig;
  */
 class ZendModuleProviderTest extends TestCase
 {
-
     use ServiceManagerConfigurationTrait;
 
     public function testCanProvideDependenciesFromServiceProviderInterface()
