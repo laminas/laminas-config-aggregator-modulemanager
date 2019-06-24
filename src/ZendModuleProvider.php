@@ -119,7 +119,7 @@ class ZendModuleProvider
 
     public function setDependenciesIdentifier(string $dependenciesIdentifier) : void
     {
-        $this->dependenciesIdentifier = (string) $dependenciesIdentifier;
+        $this->dependenciesIdentifier = $dependenciesIdentifier;
     }
 
     private function getModuleDependencies() : array
