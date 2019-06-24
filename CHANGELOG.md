@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#1](https://github.com/zendframework/zend-config-aggregator-modulemanager/pull/1) adds support for PHP 7.3.
 
 ### Changed
 
