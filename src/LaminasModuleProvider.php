@@ -21,6 +21,7 @@ use Laminas\ModuleManager\Feature\RouteProviderInterface;
 use Laminas\ModuleManager\Feature\SerializerProviderInterface;
 use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 use Laminas\ModuleManager\Feature\ValidatorProviderInterface;
+use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use Traversable;
 
 /**
@@ -62,6 +63,7 @@ class LaminasModuleProvider
             'hydrators' => $this->getHydratorConfig(),
             'input_filters' => $this->getInputFilterConfig(),
             'serializers' => $this->getSerializerConfig(),
+            'view_helpers' => $this->getViewHelperConfig(),
         ]));
     }
 
@@ -177,7 +179,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getHydratorConfig());
     }
 
-    public function getInputFilterConfig()
+    public function getInputFilterConfig() /* : array */
     {
         if (! $this->module instanceof InputFilterProviderInterface) {
             return [];
@@ -193,5 +195,14 @@ class LaminasModuleProvider
         }
 
         return $this->convert($this->module->getSerializerConfig());
+    }
+
+    public function getViewHelperConfig() : array
+    {
+        if (! $this->module instanceof ViewHelperProviderInterface) {
+            return [];
+        }
+
+        return $this->convert($this->module->getViewHelperConfig());
     }
 }
