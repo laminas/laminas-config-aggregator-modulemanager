@@ -1,33 +1,15 @@
 {
-    "name": "zendframework/zend-config-aggregator-modulemanager",
-    "description": "Consume zend-mvc modules as configuration providers within zend-config-aggregator.",
+    "name": "laminas/laminas-config-aggregator-modulemanager",
+    "description": "Consume laminas-mvc modules as configuration providers within laminas-config-aggregator.",
     "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Maximilian Bösing",
-            "email": "max@boesing.email"
-        }
-    ],
-    "require": {
-        "php": "^7.1",
-        "zendframework/zend-config-aggregator": "^1.1",
-        "zendframework/zend-modulemanager": "^2.8"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7.0.3",
-        "zendframework/zend-coding-standard": "~1.0.0",
-        "zendframework/zend-config": "^3.1",
-        "zendframework/zend-servicemanager": "^3.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "Zend\\ConfigAggregatorModuleManager\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ZendTest\\ConfigAggregatorModuleManager\\": "test/"
-        }
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-config-aggregator-modulemanager/",
+        "issues": "https://github.com/laminas/laminas-config-aggregator-modulemanager/issues",
+        "source": "https://github.com/laminas/laminas-config-aggregator-modulemanager",
+        "rss": "https://github.com/laminas/laminas-config-aggregator-modulemanager/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
     "config": {
         "sort-packages": true
@@ -36,6 +18,28 @@
         "branch-alias": {
             "dev-master": "1.0.x-dev",
             "dev-develop": "1.1.x-dev"
+        }
+    },
+    "require": {
+        "php": "^7.1",
+        "laminas/laminas-config-aggregator": "^1.1",
+        "laminas/laminas-modulemanager": "^2.8",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "laminas/laminas-config": "^3.1",
+        "laminas/laminas-servicemanager": "^3.3",
+        "phpunit/phpunit": "^7.0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\ConfigAggregatorModuleManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\ConfigAggregatorModuleManager\\": "test/"
         }
     },
     "scripts": {
@@ -47,5 +51,8 @@
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "zendframework/zend-config-aggregator-modulemanager": "self.version"
     }
 }
