@@ -10,18 +10,10 @@ declare(strict_types=1);
 
 namespace LaminasTest\ConfigAggregatorModuleManager\Resources;
 
-trait ServiceManagerConfigurationTrait
+class LaminasModuleWithInvalidConfiguration
 {
-    private function createServiceManagerConfiguration() : array
+
+    public function getConfig()
     {
-        return [
-            'factories' => [],
-            'invokables' => [],
-            'aliases' => [],
-            'delegators' => [],
-            'abstract_factories' => [],
-            'shared' => [],
-            'initializers' => [],
-        ];
     }
 }

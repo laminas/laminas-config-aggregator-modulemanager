@@ -1,41 +1,41 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config-aggregator-modulemanager for the canonical source repository
- * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config-aggregator-modulemanager/blob/master/LICENSE.md
- *            New BSD License
+ * @see       https://github.com/laminas/laminas-config-aggregator-modulemanager for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace ZendTest\ConfigAggregatorModuleManager;
+namespace LaminasTest\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
+use Laminas\ConfigAggregatorModuleManager\LaminasModuleProvider;
+use Laminas\ModuleManager\Feature\FilterProviderInterface;
+use Laminas\ModuleManager\Feature\FormElementProviderInterface;
+use Laminas\ModuleManager\Feature\HydratorProviderInterface;
+use Laminas\ModuleManager\Feature\InputFilterProviderInterface;
+use Laminas\ModuleManager\Feature\RouteProviderInterface;
+use Laminas\ModuleManager\Feature\SerializerProviderInterface;
+use Laminas\ModuleManager\Feature\ValidatorProviderInterface;
+use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModule;
+use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModuleWithInvalidConfiguration;
+use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModuleWithLaminasConfig;
+use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModuleWithoutImplementingInterfaces;
+use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModuleWithTraversableConfig;
+use LaminasTest\ConfigAggregatorModuleManager\Resources\ServiceManagerConfigurationTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\ConfigAggregatorModuleManager\ZendModuleProvider;
-use Zend\ModuleManager\Feature\FilterProviderInterface;
-use Zend\ModuleManager\Feature\FormElementProviderInterface;
-use Zend\ModuleManager\Feature\HydratorProviderInterface;
-use Zend\ModuleManager\Feature\InputFilterProviderInterface;
-use Zend\ModuleManager\Feature\RouteProviderInterface;
-use Zend\ModuleManager\Feature\SerializerProviderInterface;
-use Zend\ModuleManager\Feature\ValidatorProviderInterface;
-use ZendTest\ConfigAggregatorModuleManager\Resources\ServiceManagerConfigurationTrait;
-use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModule;
-use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithInvalidConfiguration;
-use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithoutImplementingInterfaces;
-use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithTraversableConfig;
-use ZendTest\ConfigAggregatorModuleManager\Resources\ZendModuleWithZendConfig;
 
-class ZendModuleProviderTest extends TestCase
+class LaminasModuleProviderTest extends TestCase
 {
     use ServiceManagerConfigurationTrait;
 
     public function testCanProvideDependenciesFromServiceProviderInterface()
     {
-        $module = new ZendModule();
-        $provider = new ZendModuleProvider($module);
+        $module = new LaminasModule();
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
 
@@ -51,7 +51,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getRouteConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('route_manager', $config);
@@ -66,7 +66,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getFormElementConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('form_elements', $config);
@@ -81,7 +81,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getFilterConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('filters', $config);
@@ -96,7 +96,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getValidatorConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('validators', $config);
@@ -111,7 +111,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getHydratorConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('hydrators', $config);
@@ -126,7 +126,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getInputFilterConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('input_filters', $config);
@@ -141,7 +141,7 @@ class ZendModuleProviderTest extends TestCase
             ->method('getSerializerConfig')
             ->willReturn($this->createServiceManagerConfiguration());
 
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
         $this->assertArrayHasKey('serializers', $config);
@@ -150,19 +150,19 @@ class ZendModuleProviderTest extends TestCase
 
     public function testCanProvideAnyConfigValue()
     {
-        $module = new ZendModule();
-        $provider = new ZendModuleProvider($module);
+        $module = new LaminasModule();
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
 
         $this->assertArrayHasKey('__class__', $config);
-        $this->assertSame(ZendModule::class, $config['__class__']);
+        $this->assertSame(LaminasModule::class, $config['__class__']);
     }
 
     public function testCanProvideDependenciesFromModuleWithoutInterface()
     {
-        $module = new ZendModuleWithoutImplementingInterfaces();
-        $provider = new ZendModuleProvider($module);
+        $module = new LaminasModuleWithoutImplementingInterfaces();
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
 
@@ -173,7 +173,7 @@ class ZendModuleProviderTest extends TestCase
     public function testCanHandleModulesWithoutConfigurationProvider()
     {
         $module = new stdClass();
-        $provider = new ZendModuleProvider($module);
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
 
@@ -182,8 +182,8 @@ class ZendModuleProviderTest extends TestCase
 
     public function testCanHandleModulesWithTraversableConfiguration()
     {
-        $module = new ZendModuleWithZendConfig();
-        $provider = new ZendModuleProvider($module);
+        $module = new LaminasModuleWithLaminasConfig();
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
 
@@ -191,10 +191,10 @@ class ZendModuleProviderTest extends TestCase
         $this->assertSame($this->createServiceManagerConfiguration(), $config['dependencies']);
     }
 
-    public function testCanHandleModuelsWithZendConfigConfiguration()
+    public function testCanHandleModuelsWithLaminasConfigConfiguration()
     {
-        $module = new ZendModuleWithTraversableConfig();
-        $provider = new ZendModuleProvider($module);
+        $module = new LaminasModuleWithTraversableConfig();
+        $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
 
@@ -207,8 +207,8 @@ class ZendModuleProviderTest extends TestCase
      */
     public function testThrowsInvalidArgumentExceptionOnInvalidConfiguration()
     {
-        $module = new ZendModuleWithInvalidConfiguration();
-        $provider = new ZendModuleProvider($module);
+        $module = new LaminasModuleWithInvalidConfiguration();
+        $provider = new LaminasModuleProvider($module);
 
         $provider();
     }
