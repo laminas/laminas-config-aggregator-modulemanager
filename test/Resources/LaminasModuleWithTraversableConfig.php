@@ -10,18 +10,17 @@ declare(strict_types=1);
 
 namespace LaminasTest\ConfigAggregatorModuleManager\Resources;
 
-trait ServiceManagerConfigurationTrait
+use ArrayObject;
+use stdClass;
+
+class LaminasModuleWithTraversableConfig
 {
-    private function createServiceManagerConfiguration() : array
+    use ServiceManagerConfigurationTrait;
+
+    public function getConfig()
     {
-        return [
-            'factories' => [],
-            'invokables' => [],
-            'aliases' => [],
-            'delegators' => [],
-            'abstract_factories' => [],
-            'shared' => [],
-            'initializers' => [],
-        ];
+        return new ArrayObject([
+            'service_manager' => $this->createServiceManagerConfiguration(),
+        ]);
     }
 }

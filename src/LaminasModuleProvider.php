@@ -1,32 +1,32 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config-aggregator-modulemanager for the canonical source repository
- * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config-aggregator-modulemanager/blob/master/LICENSE.md
- *            New BSD License
+ * @see       https://github.com/laminas/laminas-config-aggregator-modulemanager for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace Zend\ConfigAggregatorModuleManager;
+namespace Laminas\ConfigAggregatorModuleManager;
 
 use InvalidArgumentException;
+use Laminas\Config\Config;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\FilterProviderInterface;
+use Laminas\ModuleManager\Feature\FormElementProviderInterface;
+use Laminas\ModuleManager\Feature\HydratorProviderInterface;
+use Laminas\ModuleManager\Feature\InputFilterProviderInterface;
+use Laminas\ModuleManager\Feature\RouteProviderInterface;
+use Laminas\ModuleManager\Feature\SerializerProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
+use Laminas\ModuleManager\Feature\ValidatorProviderInterface;
 use Traversable;
-use Zend\Config\Config;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\FilterProviderInterface;
-use Zend\ModuleManager\Feature\FormElementProviderInterface;
-use Zend\ModuleManager\Feature\HydratorProviderInterface;
-use Zend\ModuleManager\Feature\InputFilterProviderInterface;
-use Zend\ModuleManager\Feature\RouteProviderInterface;
-use Zend\ModuleManager\Feature\SerializerProviderInterface;
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\ModuleManager\Feature\ValidatorProviderInterface;
 
 /**
- * Provide configuration by consuming zend-modulemanager Module classes.
+ * Provide configuration by consuming laminas-modulemanager Module classes.
  */
-class ZendModuleProvider
+class LaminasModuleProvider
 {
     /**
      * @var object

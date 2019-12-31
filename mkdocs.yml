@@ -1,9 +1,8 @@
-site_name: zend-config-aggregator-modulemanager
+site_name: laminas-config-aggregator-modulemanager
 docs_dir: docs/book
 site_dir: docs/html
-pages:
+nav:
     - index.md
     - Usage: usage.md
-site_description: 'Consume zend-mvc modules as configuration providers within zend-config-aggregator.'
-repo_url: 'https://github.com/zendframework/zend-config-aggregator-modulemanager'
-copyright: 'Copyright (c) 2018 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+site_description: 'Consume laminas-mvc modules as configuration providers within laminas-config-aggregator.'
+repo_url: 'https://github.com/laminas/laminas-config-aggregator-modulemanager'
