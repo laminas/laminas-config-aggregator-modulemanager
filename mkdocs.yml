@@ -3,7 +3,7 @@ docs_dir: docs/book
 site_dir: docs/html
 nav:
     - index.md
-    - { Usage: usage.md }
+    - Usage: usage.md
 site_description: 'Consume laminas-mvc modules as configuration providers within laminas-config-aggregator.'
 repo_url: 'https://github.com/laminas/laminas-config-aggregator-modulemanager'
 extra:
