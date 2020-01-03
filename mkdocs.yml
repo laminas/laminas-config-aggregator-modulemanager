@@ -6,3 +6,6 @@ nav:
     - Usage: usage.md
 site_description: 'Consume laminas-mvc modules as configuration providers within laminas-config-aggregator.'
 repo_url: 'https://github.com/laminas/laminas-config-aggregator-modulemanager'
+extra:
+    project: Components
+    project_url: 'https://docs.laminas.dev'
