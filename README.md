@@ -1,6 +1,6 @@
 # laminas-config-aggregator-modulemanager
 
-[![Build Status](https://travis-ci.org/laminas/laminas-config-aggregator-modulemanager.svg?branch=master)](https://travis-ci.org/laminas/laminas-config-aggregator-modulemanager)
+[![Build Status](https://travis-ci.com/laminas/laminas-config-aggregator-modulemanager.svg?branch=master)](https://travis-ci.com/laminas/laminas-config-aggregator-modulemanager)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-config-aggregator-modulemanager/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-config-aggregator-modulemanager?branch=master)
 
 Provides an extension to the `laminas/laminas-config-aggregator` so `laminas/laminas-mvc` 
