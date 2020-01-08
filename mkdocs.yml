@@ -8,4 +8,3 @@ site_description: 'Consume laminas-mvc modules as configuration providers within
 repo_url: 'https://github.com/laminas/laminas-config-aggregator-modulemanager'
 extra:
     project: Components
-    project_url: 'https://docs.laminas.dev'
