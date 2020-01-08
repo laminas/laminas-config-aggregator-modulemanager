@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -172,50 +176,47 @@
 that allows you to use <code>Module</code> classes as configuration providers in
 applications backed by <code>Laminas\ConfigAggregator\ConfigAggregator</code>.</p>
 <p>As an example, consider the following <code>Module</code> class:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace My\Laminas\MvcModule;</span>
+<pre class=codehilite><code class=language-php>namespace My\Laminas\MvcModule;
 
-<span class=x>class Module </span>
-<span class=x>{</span>
-<span class=x>    public function getConfig()</span>
-<span class=x>    {</span>
-<span class=x>        return [</span>
-<span class=x>            &#39;service_manager&#39; =&gt; [</span>
-<span class=x>                &#39;invokables&#39; =&gt; [</span>
-<span class=x>                    Service\MyService::class =&gt; Service\MyService::class, </span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ];</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+class Module 
+{
+    public function getConfig()
+    {
+        return [
+            'service_manager' =&gt; [
+                'invokables' =&gt; [
+                    Service\MyService::class =&gt; Service\MyService::class, 
+                ],
+            ],
+        ];
+    }
+}</code></pre>
 <p>When defining configuration for your application, you can use the class
 <code>Laminas\ConfigAggregatorModuleManager\LaminasModuleProvider</code> to wrap the module and
 use it as a configuration provider:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\ConfigAggregator\ConfigAggregator;</span>
-<span class=x>use Laminas\ConfigAggregatorModuleManager\LaminasModuleProvider;</span>
-<span class=x>use My\Laminas\MvcModule\Module as MyLaminasMvcModule;</span>
+<pre class=codehilite><code class=language-php>use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregatorModuleManager\LaminasModuleProvider;
+use My\Laminas\MvcModule\Module as MyLaminasMvcModule;
 
-<span class=x>$aggregator = new ConfigAggregator([</span>
-<span class=x>    new LaminasModuleProvider(new MyLaminasMvcModule()),</span>
-<span class=x>]);</span>
+$aggregator = new ConfigAggregator([
+    new LaminasModuleProvider(new MyLaminasMvcModule()),
+]);
 
-<span class=x>var_dump($aggregator-&gt;getMergedConfig());</span>
-</pre></div></p>
+var_dump($aggregator-&gt;getMergedConfig());</code></pre>
 <p>Using this provider, the <code>Module</code> class is being parsed for
 <code>laminas/laminas-modulemanager</code> interfaces or methods in exactly the same way as
 performed in laminas-mvc applications.</p>
 <p>The resultant output of the above example would be:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>array(1) {</span>
-<span class=x>  &#39;dependencies&#39; =&gt; </span>
-<span class=x>  array(1) {</span>
-<span class=x>    &#39;invokables&#39; =&gt;</span>
-<span class=x>    array(1) {</span>
-<span class=x>       &#39;My\Laminas\MvcModule\Service\MyService&#39; =&gt;</span>
-<span class=x>       string(35) &quot;My\Laminas\MvcModule\Service\MyService&quot;</span>
-<span class=x>    }</span>
-<span class=x>  }</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>array(1) {
+  'dependencies' =&gt; 
+  array(1) {
+    'invokables' =&gt;
+    array(1) {
+       'My\Laminas\MvcModule\Service\MyService' =&gt;
+       string(35) &quot;My\Laminas\MvcModule\Service\MyService&quot;
+    }
+  }
+}</code></pre>
 
 
 
@@ -310,9 +311,10 @@ performed in laminas-mvc applications.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -349,7 +351,7 @@ performed in laminas-mvc applications.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-config-aggregator-modulemanager//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -358,8 +360,8 @@ performed in laminas-mvc applications.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-config-aggregator-modulemanager//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-config-aggregator-modulemanager/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>
