@@ -235,7 +235,7 @@
 that allows you to use <code>Module</code> classes as configuration providers in
 applications backed by <code>Laminas\ConfigAggregator\ConfigAggregator</code>.</p>
 <p>As an example, consider the following <code>Module</code> class:</p>
-<pre class=codehilite><code class=language-php>namespace My\Laminas\MvcModule;
+<pre class="highlight"><code class="language-php">namespace My\Laminas\MvcModule;
 
 class Module 
 {
@@ -250,10 +250,11 @@ class Module
         ];
     }
 }</code></pre>
+
 <p>When defining configuration for your application, you can use the class
 <code>Laminas\ConfigAggregatorModuleManager\LaminasModuleProvider</code> to wrap the module and
 use it as a configuration provider:</p>
-<pre class=codehilite><code class=language-php>use Laminas\ConfigAggregator\ConfigAggregator;
+<pre class="highlight"><code class="language-php">use Laminas\ConfigAggregator\ConfigAggregator;
 use Laminas\ConfigAggregatorModuleManager\LaminasModuleProvider;
 use My\Laminas\MvcModule\Module as MyLaminasMvcModule;
 
@@ -262,17 +263,18 @@ $aggregator = new ConfigAggregator([
 ]);
 
 var_dump($aggregator-&gt;getMergedConfig());</code></pre>
+
 <p>Using this provider, the <code>Module</code> class is being parsed for
 <code>laminas/laminas-modulemanager</code> interfaces or methods in exactly the same way as
 performed in laminas-mvc applications.</p>
 <p>The resultant output of the above example would be:</p>
-<pre class=codehilite><code class=language-php>array(1) {
+<pre class="highlight"><code class="language-php">array(1) {
   'dependencies' =&gt; 
   array(1) {
     'invokables' =&gt;
     array(1) {
        'My\Laminas\MvcModule\Service\MyService' =&gt;
-       string(35) &quot;My\Laminas\MvcModule\Service\MyService&quot;
+       string(35) "My\Laminas\MvcModule\Service\MyService"
     }
   }
 }</code></pre>
