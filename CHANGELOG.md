@@ -24,6 +24,28 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+## 1.1.0 - 2020-09-15
+
+### Added
+
+- [#2](https://github.com/laminas/laminas-config-aggregator-modulemanager/pull/2) Added `ViewHelperProviderInterface` compatibility.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+ 
 ## 1.0.1 - 2019-06-24
 
 ### Added
