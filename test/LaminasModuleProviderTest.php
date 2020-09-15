@@ -19,6 +19,7 @@ use Laminas\ModuleManager\Feature\InputFilterProviderInterface;
 use Laminas\ModuleManager\Feature\RouteProviderInterface;
 use Laminas\ModuleManager\Feature\SerializerProviderInterface;
 use Laminas\ModuleManager\Feature\ValidatorProviderInterface;
+use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModule;
 use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModuleWithInvalidConfiguration;
 use LaminasTest\ConfigAggregatorModuleManager\Resources\LaminasModuleWithLaminasConfig;
@@ -148,6 +149,21 @@ class LaminasModuleProviderTest extends TestCase
         $this->assertSame($this->createServiceManagerConfiguration(), $config['serializers']);
     }
 
+    public function testCanProviderViewHelpersFromViewHelperProviderInterface()
+    {
+        $module = $this->createMock(ViewHelperProviderInterface::class);
+        $module
+            ->expects($this->once())
+            ->method('getViewHelperConfig')
+            ->willReturn($this->createServiceManagerConfiguration());
+
+        $provider = new LaminasModuleProvider($module);
+
+        $config = $provider();
+        $this->assertArrayHasKey('view_helpers', $config);
+        $this->assertSame($this->createServiceManagerConfiguration(), $config['view_helpers']);
+    }
+
     public function testCanProvideAnyConfigValue()
     {
         $module = new LaminasModule();
@@ -191,7 +207,7 @@ class LaminasModuleProviderTest extends TestCase
         $this->assertSame($this->createServiceManagerConfiguration(), $config['dependencies']);
     }
 
-    public function testCanHandleModuelsWithLaminasConfigConfiguration()
+    public function testCanHandleModulesWithLaminasConfigConfiguration()
     {
         $module = new LaminasModuleWithTraversableConfig();
         $provider = new LaminasModuleProvider($module);
