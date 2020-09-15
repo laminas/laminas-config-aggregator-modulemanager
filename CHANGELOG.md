@@ -2,27 +2,24 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.1.1 - TBD
+## 1.1.1 - 2020-09-15
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [1.1.1](https://github.com/laminas/laminas-config-aggregator-modulemanager/milestone/2)
 
-- Nothing.
+1.1.x bugfix release (patch)
 
-### Deprecated
+### 1.1.1
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-### Removed
+#### Documentation
 
-- Nothing.
-
-### Fixed
-
-- Nothing.
+ - [3: Fixing CHANGELOG](https://github.com/laminas/laminas-config-aggregator-modulemanager/pull/3) thanks to @boesing
 
 ## 1.1.0 - 2020-09-15
 
