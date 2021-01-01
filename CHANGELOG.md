@@ -2,27 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.2.0 - TBD
+## 1.2.0 - 2021-01-01
 
 ### Added
 
 - [#7](https://github.com/laminas/laminas-config-aggregator-modulemanager/pull/7) Adds PHP 8.0 support
 
-### Changed
 
-- Nothing.
+-----
 
-### Deprecated
+### Release Notes for [1.2.0](https://github.com/laminas/laminas-config-aggregator-modulemanager/milestone/3)
 
-- Nothing.
+Feature release (minor)
 
-### Removed
+### 1.2.0
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-### Fixed
+#### Enhancement
 
-- Nothing.
+ - [7: PHP 8.0 support](https://github.com/laminas/laminas-config-aggregator-modulemanager/pull/7) thanks to @svycka
 
 ## 1.1.1 - 2020-09-15
 
