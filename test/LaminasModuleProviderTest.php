@@ -218,11 +218,9 @@ class LaminasModuleProviderTest extends TestCase
         $this->assertSame($this->createServiceManagerConfiguration(), $config['dependencies']);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testThrowsInvalidArgumentExceptionOnInvalidConfiguration()
     {
+        $this->expectException(InvalidArgumentException::class);
         $module = new LaminasModuleWithInvalidConfiguration();
         $provider = new LaminasModuleProvider($module);
 
