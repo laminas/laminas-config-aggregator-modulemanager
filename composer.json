@@ -19,8 +19,7 @@
     "require": {
         "php": "^7.3 || ~8.0.0",
         "laminas/laminas-config-aggregator": "^1.1",
-        "laminas/laminas-modulemanager": "^2.8",
-        "laminas/laminas-zendframework-bridge": "^1.0"
+        "laminas/laminas-modulemanager": "^2.8"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
@@ -48,7 +47,7 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zendframework/zend-config-aggregator-modulemanager": "^1.0.1"
+    "conflict": {
+        "zendframework/zend-config-aggregator-modulemanager": "*"
     }
 }
