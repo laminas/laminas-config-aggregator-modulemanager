@@ -14,7 +14,7 @@ class LaminasModuleWithTraversableConfig
 {
     use ServiceManagerConfigurationTrait;
 
-    public function getConfig() /* : ArrayObject */
+    public function getConfig() /* phpcs:ignore */
     {
         return new ArrayObject([
             'service_manager' => $this->createServiceManagerConfiguration(),
