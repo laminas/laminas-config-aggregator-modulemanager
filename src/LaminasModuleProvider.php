@@ -37,14 +37,11 @@ use function sprintf;
  */
 class LaminasModuleProvider
 {
-    /** @var object */
-    private $module;
+    private object $module;
 
-    /** @var array */
-    private $dependencies = [];
+    private array $dependencies = [];
 
-    /** @var string */
-    private $dependenciesIdentifier = 'dependencies';
+    private string $dependenciesIdentifier = 'dependencies';
 
     /**
      * @param object $module
