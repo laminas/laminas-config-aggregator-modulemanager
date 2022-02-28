@@ -108,7 +108,7 @@ class LaminasModuleProvider
                 'Config being merged must be an array, implement the Traversable interface,'
                 . ' or be an instance of %s. %s given.',
                 Config::class,
-                is_object($config) ? $config::class : gettype($config)
+                is_object($config) ? get_class($config) : gettype($config)
             ));
         }
 
