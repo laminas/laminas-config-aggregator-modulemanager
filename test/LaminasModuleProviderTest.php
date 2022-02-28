@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/laminas/laminas-config-aggregator-modulemanager for the canonical source repository
- * @copyright https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -35,7 +33,7 @@ class LaminasModuleProviderTest extends TestCase
 
     public function testCanProvideDependenciesFromServiceProviderInterface()
     {
-        $module = new LaminasModule();
+        $module   = new LaminasModule();
         $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
@@ -166,7 +164,7 @@ class LaminasModuleProviderTest extends TestCase
 
     public function testCanProvideAnyConfigValue()
     {
-        $module = new LaminasModule();
+        $module   = new LaminasModule();
         $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
@@ -177,7 +175,7 @@ class LaminasModuleProviderTest extends TestCase
 
     public function testCanProvideDependenciesFromModuleWithoutInterface()
     {
-        $module = new LaminasModuleWithoutImplementingInterfaces();
+        $module   = new LaminasModuleWithoutImplementingInterfaces();
         $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
@@ -188,7 +186,7 @@ class LaminasModuleProviderTest extends TestCase
 
     public function testCanHandleModulesWithoutConfigurationProvider()
     {
-        $module = new stdClass();
+        $module   = new stdClass();
         $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
@@ -198,7 +196,7 @@ class LaminasModuleProviderTest extends TestCase
 
     public function testCanHandleModulesWithTraversableConfiguration()
     {
-        $module = new LaminasModuleWithLaminasConfig();
+        $module   = new LaminasModuleWithLaminasConfig();
         $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
@@ -209,7 +207,7 @@ class LaminasModuleProviderTest extends TestCase
 
     public function testCanHandleModulesWithLaminasConfigConfiguration()
     {
-        $module = new LaminasModuleWithTraversableConfig();
+        $module   = new LaminasModuleWithTraversableConfig();
         $provider = new LaminasModuleProvider($module);
 
         $config = $provider();
@@ -221,7 +219,7 @@ class LaminasModuleProviderTest extends TestCase
     public function testThrowsInvalidArgumentExceptionOnInvalidConfiguration()
     {
         $this->expectException(InvalidArgumentException::class);
-        $module = new LaminasModuleWithInvalidConfiguration();
+        $module   = new LaminasModuleWithInvalidConfiguration();
         $provider = new LaminasModuleProvider($module);
 
         $provider();

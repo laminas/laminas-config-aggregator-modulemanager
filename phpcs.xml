@@ -1,5 +1,5 @@
 <ruleset name="Laminas Coding Standard">
-    <rule ref="./vendor/laminas/laminas-coding-standard/ruleset.xml"/>
+    <rule ref="./vendor/laminas/laminas-coding-standard/src/LaminasCodingStandard/ruleset.xml"/>
     <!-- Paths to check -->
     <file>src</file>
     <file>test</file>

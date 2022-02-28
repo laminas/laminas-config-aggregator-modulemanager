@@ -2,8 +2,6 @@
 
 /**
  * @see       https://github.com/laminas/laminas-config-aggregator-modulemanager for the canonical source repository
- * @copyright https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-config-aggregator-modulemanager/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -24,24 +22,27 @@ use Laminas\ModuleManager\Feature\ValidatorProviderInterface;
 use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use Traversable;
 
+use function array_filter;
+use function array_replace_recursive;
+use function gettype;
+use function is_array;
+use function is_callable;
+use function is_object;
+use function iterator_to_array;
+use function sprintf;
+
 /**
  * Provide configuration by consuming laminas-modulemanager Module classes.
  */
 class LaminasModuleProvider
 {
-    /**
-     * @var object
-     */
+    /** @var object */
     private $module;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $dependencies = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $dependenciesIdentifier = 'dependencies';
 
     /**
@@ -52,26 +53,27 @@ class LaminasModuleProvider
         $this->module = $module;
     }
 
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return array_filter(array_replace_recursive($this->getModuleConfig(), [
             $this->getDependenciesIdentifier() => $this->getModuleDependencies(),
-            'route_manager' => $this->getRouteConfig(),
-            'form_elements' => $this->getFormElementConfig(),
-            'filters' => $this->getFilterConfig(),
-            'validators' => $this->getValidatorConfig(),
-            'hydrators' => $this->getHydratorConfig(),
-            'input_filters' => $this->getInputFilterConfig(),
-            'serializers' => $this->getSerializerConfig(),
-            'view_helpers' => $this->getViewHelperConfig(),
+            'route_manager'                    => $this->getRouteConfig(),
+            'form_elements'                    => $this->getFormElementConfig(),
+            'filters'                          => $this->getFilterConfig(),
+            'validators'                       => $this->getValidatorConfig(),
+            'hydrators'                        => $this->getHydratorConfig(),
+            'input_filters'                    => $this->getInputFilterConfig(),
+            'serializers'                      => $this->getSerializerConfig(),
+            'view_helpers'                     => $this->getViewHelperConfig(),
         ]));
     }
 
-    private function getModuleConfig() : array
+    private function getModuleConfig(): array
     {
         $module = $this->module;
 
-        if (! $module instanceof ConfigProviderInterface
+        if (
+            ! $module instanceof ConfigProviderInterface
             && ! is_callable([$module, 'getConfig'])
         ) {
             return [];
@@ -89,10 +91,9 @@ class LaminasModuleProvider
 
     /**
      * @param array|Traversable $config
-     *
      * @return array
      */
-    private function convert($config) : array
+    private function convert($config): array
     {
         if ($config instanceof Config) {
             return $config->toArray();
@@ -107,24 +108,24 @@ class LaminasModuleProvider
                 'Config being merged must be an array, implement the Traversable interface,'
                 . ' or be an instance of %s. %s given.',
                 Config::class,
-                is_object($config) ? get_class($config) : gettype($config)
+                is_object($config) ? $config::class : gettype($config)
             ));
         }
 
         return $config;
     }
 
-    public function getDependenciesIdentifier() : string
+    public function getDependenciesIdentifier(): string
     {
         return $this->dependenciesIdentifier;
     }
 
-    public function setDependenciesIdentifier(string $dependenciesIdentifier) : void
+    public function setDependenciesIdentifier(string $dependenciesIdentifier): void
     {
         $this->dependenciesIdentifier = $dependenciesIdentifier;
     }
 
-    private function getModuleDependencies() : array
+    private function getModuleDependencies(): array
     {
         $module = $this->module;
         if (! $module instanceof ServiceProviderInterface) {
@@ -134,7 +135,7 @@ class LaminasModuleProvider
         return array_replace_recursive($this->dependencies, $this->convert($module->getServiceConfig()));
     }
 
-    public function getRouteConfig() : array
+    public function getRouteConfig(): array
     {
         if (! $this->module instanceof RouteProviderInterface) {
             return [];
@@ -143,7 +144,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getRouteConfig());
     }
 
-    public function getFormElementConfig() : array
+    public function getFormElementConfig(): array
     {
         if (! $this->module instanceof FormElementProviderInterface) {
             return [];
@@ -152,7 +153,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getFormElementConfig());
     }
 
-    public function getFilterConfig() : array
+    public function getFilterConfig(): array
     {
         if (! $this->module instanceof FilterProviderInterface) {
             return [];
@@ -161,7 +162,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getFilterConfig());
     }
 
-    public function getValidatorConfig() : array
+    public function getValidatorConfig(): array
     {
         if (! $this->module instanceof ValidatorProviderInterface) {
             return [];
@@ -170,7 +171,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getValidatorConfig());
     }
 
-    public function getHydratorConfig() : array
+    public function getHydratorConfig(): array
     {
         if (! $this->module instanceof HydratorProviderInterface) {
             return [];
@@ -179,7 +180,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getHydratorConfig());
     }
 
-    public function getInputFilterConfig() /* : array */
+    public function getInputFilterConfig(): array
     {
         if (! $this->module instanceof InputFilterProviderInterface) {
             return [];
@@ -188,7 +189,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getInputFilterConfig());
     }
 
-    public function getSerializerConfig() : array
+    public function getSerializerConfig(): array
     {
         if (! $this->module instanceof SerializerProviderInterface) {
             return [];
@@ -197,7 +198,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getSerializerConfig());
     }
 
-    public function getViewHelperConfig() : array
+    public function getViewHelperConfig(): array
     {
         if (! $this->module instanceof ViewHelperProviderInterface) {
             return [];
