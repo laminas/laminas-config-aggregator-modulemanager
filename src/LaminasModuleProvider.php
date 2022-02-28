@@ -21,6 +21,7 @@ use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 use Laminas\ModuleManager\Feature\ValidatorProviderInterface;
 use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use Traversable;
+
 use function array_filter;
 use function array_replace_recursive;
 use function get_class;
