@@ -58,14 +58,14 @@ class LaminasModuleProvider
     {
         return array_filter(array_replace_recursive($this->getModuleConfig(), [
             $this->getDependenciesIdentifier() => $this->getModuleDependencies(),
-            'route_manager' => $this->getRouteConfig(),
-            'form_elements' => $this->getFormElementConfig(),
-            'filters' => $this->getFilterConfig(),
-            'validators' => $this->getValidatorConfig(),
-            'hydrators' => $this->getHydratorConfig(),
-            'input_filters' => $this->getInputFilterConfig(),
-            'serializers' => $this->getSerializerConfig(),
-            'view_helpers' => $this->getViewHelperConfig(),
+            'route_manager'                    => $this->getRouteConfig(),
+            'form_elements'                    => $this->getFormElementConfig(),
+            'filters'                          => $this->getFilterConfig(),
+            'validators'                       => $this->getValidatorConfig(),
+            'hydrators'                        => $this->getHydratorConfig(),
+            'input_filters'                    => $this->getInputFilterConfig(),
+            'serializers'                      => $this->getSerializerConfig(),
+            'view_helpers'                     => $this->getViewHelperConfig(),
         ]));
     }
 
@@ -74,8 +74,8 @@ class LaminasModuleProvider
         $module = $this->module;
 
         if (
-            !$module instanceof ConfigProviderInterface
-            && !is_callable([$module, 'getConfig'])
+            ! $module instanceof ConfigProviderInterface
+            && ! is_callable([$module, 'getConfig'])
         ) {
             return [];
         }
@@ -104,7 +104,7 @@ class LaminasModuleProvider
             return iterator_to_array($config);
         }
 
-        if (!is_array($config)) {
+        if (! is_array($config)) {
             throw new InvalidArgumentException(sprintf(
                 'Config being merged must be an array, implement the Traversable interface,'
                 . ' or be an instance of %s. %s given.',
@@ -129,7 +129,7 @@ class LaminasModuleProvider
     private function getModuleDependencies(): array
     {
         $module = $this->module;
-        if (!$module instanceof ServiceProviderInterface) {
+        if (! $module instanceof ServiceProviderInterface) {
             return $this->dependencies;
         }
 
@@ -138,7 +138,7 @@ class LaminasModuleProvider
 
     public function getRouteConfig(): array
     {
-        if (!$this->module instanceof RouteProviderInterface) {
+        if (! $this->module instanceof RouteProviderInterface) {
             return [];
         }
 
@@ -147,7 +147,7 @@ class LaminasModuleProvider
 
     public function getFormElementConfig(): array
     {
-        if (!$this->module instanceof FormElementProviderInterface) {
+        if (! $this->module instanceof FormElementProviderInterface) {
             return [];
         }
 
@@ -156,7 +156,7 @@ class LaminasModuleProvider
 
     public function getFilterConfig(): array
     {
-        if (!$this->module instanceof FilterProviderInterface) {
+        if (! $this->module instanceof FilterProviderInterface) {
             return [];
         }
 
@@ -165,7 +165,7 @@ class LaminasModuleProvider
 
     public function getValidatorConfig(): array
     {
-        if (!$this->module instanceof ValidatorProviderInterface) {
+        if (! $this->module instanceof ValidatorProviderInterface) {
             return [];
         }
 
@@ -174,7 +174,7 @@ class LaminasModuleProvider
 
     public function getHydratorConfig(): array
     {
-        if (!$this->module instanceof HydratorProviderInterface) {
+        if (! $this->module instanceof HydratorProviderInterface) {
             return [];
         }
 
@@ -183,7 +183,7 @@ class LaminasModuleProvider
 
     public function getInputFilterConfig(): array
     {
-        if (!$this->module instanceof InputFilterProviderInterface) {
+        if (! $this->module instanceof InputFilterProviderInterface) {
             return [];
         }
 
@@ -192,7 +192,7 @@ class LaminasModuleProvider
 
     public function getSerializerConfig(): array
     {
-        if (!$this->module instanceof SerializerProviderInterface) {
+        if (! $this->module instanceof SerializerProviderInterface) {
             return [];
         }
 
@@ -201,7 +201,7 @@ class LaminasModuleProvider
 
     public function getViewHelperConfig(): array
     {
-        if (!$this->module instanceof ViewHelperProviderInterface) {
+        if (! $this->module instanceof ViewHelperProviderInterface) {
             return [];
         }
 
