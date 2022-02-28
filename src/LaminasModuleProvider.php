@@ -181,7 +181,7 @@ class LaminasModuleProvider
         return $this->convert($this->module->getHydratorConfig());
     }
 
-    public function getInputFilterConfig(): array
+    public function getInputFilterConfig() /* : array */
     {
         if (! $this->module instanceof InputFilterProviderInterface) {
             return [];
