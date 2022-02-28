@@ -14,7 +14,10 @@ class LaminasModuleWithLaminasConfig
 {
     use ServiceManagerConfigurationTrait;
 
-    public function getConfig() /* phpcs:ignore */
+    /**
+     * @return Config
+     */
+    public function getConfig()
     {
         return new Config([
             'service_manager' => $this->createServiceManagerConfiguration(),
