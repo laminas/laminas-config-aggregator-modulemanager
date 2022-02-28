@@ -25,6 +25,7 @@ use Traversable;
 use function array_filter;
 use function array_replace_recursive;
 use function gettype;
+use function get_class;
 use function is_array;
 use function is_callable;
 use function is_object;
