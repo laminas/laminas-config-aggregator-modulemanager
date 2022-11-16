@@ -24,11 +24,9 @@ use Traversable;
 
 use function array_filter;
 use function array_replace_recursive;
-use function get_class;
-use function gettype;
+use function get_debug_type;
 use function is_array;
 use function is_callable;
-use function is_object;
 use function iterator_to_array;
 use function sprintf;
 
@@ -106,7 +104,7 @@ class LaminasModuleProvider
                 'Config being merged must be an array, implement the Traversable interface,'
                 . ' or be an instance of %s. %s given.',
                 Config::class,
-                is_object($config) ? get_class($config) : gettype($config)
+                get_debug_type($config),
             ));
         }
 
