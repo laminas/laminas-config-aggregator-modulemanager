@@ -20,15 +20,15 @@
     "extra": {
     },
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
         "laminas/laminas-config-aggregator": "^1.1",
         "laminas/laminas-modulemanager": "^2.8"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.3",
-        "laminas/laminas-config": "^3.7",
-        "laminas/laminas-servicemanager": "^3.3",
-        "phpunit/phpunit": "^9.5"
+        "laminas/laminas-coding-standard": "^2.4",
+        "laminas/laminas-config": "^3.8",
+        "laminas/laminas-servicemanager": "^3.19",
+        "phpunit/phpunit": "^9.5.26"
     },
     "autoload": {
         "psr-4": {
