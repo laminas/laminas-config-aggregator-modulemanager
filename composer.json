@@ -17,6 +17,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
+    "abandoned": true,
     "extra": {
     },
     "require": {
